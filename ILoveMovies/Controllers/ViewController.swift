@@ -8,12 +8,14 @@ import UIKit
 
 class ViewController: UIViewController {
     var favorites: [MovieView] = []
+    var randomString: RandomString!
     @IBOutlet weak var searchButton: UIBarButtonItem!
     @IBOutlet weak var favoriteCollectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor .secundaryColor
         self.title = "Favoritos"
+        self.randomString = RandomString()
         self.configureCollectionView()
     }
     func configureCollectionView() {
@@ -25,14 +27,17 @@ class ViewController: UIViewController {
     }
     @IBAction func searchButtonAction(_ sender: Any) {
      print("Teste")
+     performSegue(withIdentifier: "searchSegue", sender: sender)
     }
 }
-
-// MARK: - Collection View
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return self.favorites.count
-        return 4
+        if self.favorites.isEmpty {
+            collectionView.setEmptyMessage(self.randomString.randomFavoriteString())
+        } else {
+            collectionView.removeEmptyMessage()
+        }
+        return self.favorites.count
     }
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -40,6 +45,15 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate, 
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-          //performSegue(withIdentifier: "detailSegue", sender: self.favorites[indexPath.row].identifier)
+         performSegue(withIdentifier: "detailSegue", sender: self.favorites[indexPath.row].identifier)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets.zero
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 6
     }
 }

@@ -23,18 +23,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="113" height="171"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="irK-eH-Kro">
-                        <rect key="frame" x="20" y="130" width="42" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="113" height="171"/>
-            <point key="canvasLocation" x="94" y="-18"/>
+            <connections>
+                <outlet property="imageView" destination="LYf-Uw-hdW" id="Ntw-lT-Vov"/>
+            </connections>
+            <point key="canvasLocation" x="93.599999999999994" y="-18.440779610194905"/>
         </collectionViewCell>
     </objects>
 </document>

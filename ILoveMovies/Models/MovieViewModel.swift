@@ -8,31 +8,15 @@ import Foundation
 
 struct MovieView {
     var identifier: Int = -1
-    var releaseDate: String = ""
     var title: String = ""
+    var originalTitle: String = ""
+    var releaseDate: String = ""
     var overview: String = ""
     var posterPath: String = ""
     var backdropPath: String = ""
 }
 
 class MovieViewModel {
-    static func getAsView(_ movie: Movie?) -> MovieView {
-        guard let movie = movie else {
-            return MovieView()
-        }
-        var movieView = MovieView()
-        if let identifier = movie.identifier.value {
-            movieView.identifier = identifier
-        }
-        return movieView
-    }
-    static func getAsView(sequence: [Movie]) -> [MovieView] {
-        var movies: [MovieView] = []
-        for movie in sequence {
-            movies.append(self.getAsView(movie))
-        }
-        return movies
-    }
     static func save(movies: [Movie]) {
         try! realm.write {
             realm.add(movies, update: true)
@@ -43,6 +27,28 @@ class MovieViewModel {
             realm.delete(realm.objects(Movie.self))
         }
     }
+    static func getAsView(movie: Movie?) -> MovieView {
+        guard let movie = movie else {
+            return MovieView()
+        }
+        var movieView = MovieView()
+        if let identifier = movie.identifier.value {
+            movieView.identifier = identifier
+            movieView.posterPath = movie.posterPath ?? ""
+            movieView.originalTitle = movie.originalTitle ?? ""
+            movieView.overview = movie.overview ?? ""
+            movieView.backdropPath = movie.backdropPath ?? ""
+        }
+        return movieView
+    }
+    static func getAsView(sequence: [Movie]) -> [MovieView] {
+        var movies: [MovieView] = []
+        for movie in sequence {
+            movies.append(self.getAsView(movie: movie))
+        }
+        return movies
+    }
+
     static func makeFavorite(identifier: Int) {
         if let movie = self.getModel(identifier: identifier) {
             try! realm.write {
@@ -58,7 +64,7 @@ class MovieViewModel {
         }
     }
     static func get(identifier: Int) -> MovieView {
-        return self.getAsView(realm.object(ofType: Movie.self, forPrimaryKey: identifier))
+        return self.getAsView(movie: realm.object(ofType: Movie.self, forPrimaryKey: identifier))
     }
     static func getModel(identifier: Int) -> Movie? {
         return realm.object(ofType: Movie.self, forPrimaryKey: identifier)

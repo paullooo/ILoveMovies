@@ -7,12 +7,20 @@
 import Alamofire
 import AlamofireObjectMapper
 
+protocol MovieServiceDelegate: class {
+    func searchMoviesSuccess()
+    func searchMoviesFailure(error: String)
+}
 class MovieService {
     var getMoviesRequest: DataRequest?
     var getSimilarMovie: DataRequest?
     var getMovieRequest: DataRequest?
     var getVideosRequest: DataRequest?
     var getSimilarMoviesRequest: DataRequest?
+    weak var delegate: MovieServiceDelegate?
+    required init(delegate: MovieServiceDelegate) {
+        self.delegate = delegate
+    }
     func getMovies(search string: String) {
         self.getMoviesRequest?.cancel()
         self.getMoviesRequest = RequestFactory.getMovieSearch(with: string).validate().responseArray(
@@ -22,12 +30,12 @@ class MovieService {
                 if let movies = response.result.value {
                     MovieViewModel.clear()
                     MovieViewModel.save(movies: movies)
+                    self.delegate?.searchMoviesSuccess()
+                    print(response.result)
                 }
-                //self.delegate.success(.movies)
             case .failure:
                   print("Fail")
-//                let isRequestCancel = ErrorManager.getStatusCode(response) == -999
-//                self.delegate.failure(.movies, error: isRequestCancel ? nil : ErrorManager.get(response))
+                 // self.delegate.searchMoviesFailure(error: response.error?.localizedDescription)
             }
             })
     }
@@ -41,10 +49,8 @@ class MovieService {
                      MovieViewModel.clear()
                      MovieViewModel.save(movies: moviesSimilar)
                 }
-                //self.delegate.success(.similar)
             case .failure:
                 print("FAIL")
-                //self.delegate.failure(.similar, error: ErrorManager.get(response))
             }
             })
     }
@@ -57,10 +63,8 @@ class MovieService {
                 if let movie = response.result.value {
                     //MovieViewModel.save(movie: movie, type: .normal)
                 }
-                //self.delegate.success(.movie)
             case .failure:
                 print("FAIL")
-                //self.delegate.failure(.movie, error: ErrorManager.get(response))
             }
             })
     }
@@ -74,10 +78,8 @@ class MovieService {
                     //VideoViewModel.clear()
                     //VideoViewModel.save(videos: videos)
                 }
-                //self.delegate.success(.videos)
             case .failure:
                 print("FAIL")
-                //self.delegate.failure(.videos, error: ErrorManager.get(response))
             }
             })
     }

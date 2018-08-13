@@ -17,19 +17,18 @@ class Movie: Object, Mappable {
     @objc dynamic var favorite: Bool = false
     @objc dynamic var trailer: String?
     var backdrops = List<String>()
-    override static func primaryKey() -> String {
-        return "identifier"
-    }
     required convenience init?(map: Map) {
         self.init()
     }
+    override static func primaryKey() -> String {
+        return "identifier"
+    }
     func mapping(map: Map) {
-        identifier <- map["id"]
+        identifier.value <- map["id"]
         title <- map["title"]
+        overview <- map["overview"]
         originalTitle <- map["original_title"]
         posterPath <- map["poster_path"]
         backdropPath <- map["backdrop_path"]
-        overview <- map["overview"]
-        releaseDate <- (map["release_date"])
     }
 }
