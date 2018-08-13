@@ -17,6 +17,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     }
     func bind(movie: MovieView) {
         let url = URL(string: baseImageURL + "original" + movie.posterPath)
-        imageView.kf.setImage(with: url)
+        self.imageView.kf.indicatorType = .activity
+        self.imageView.kf.setImage(with: url, options: [.transition(.fade(1.0))])
     }
 }

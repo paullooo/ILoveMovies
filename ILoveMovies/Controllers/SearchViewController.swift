@@ -120,8 +120,4 @@ extension SearchViewController: UISearchControllerDelegate, UISearchBarDelegate,
     func presentSearchController(_ searchController: UISearchController) {
         self.searchController.searchBar.becomeFirstResponder()
     }
-    func didDismissSearchController(_ searchController: UISearchController) {
-    }
-    private func clearSearchResult() {
-    }
 }

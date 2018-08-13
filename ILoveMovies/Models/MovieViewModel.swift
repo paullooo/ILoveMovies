@@ -34,6 +34,7 @@ class MovieViewModel {
         var movieView = MovieView()
         if let identifier = movie.identifier.value {
             movieView.identifier = identifier
+            movieView.title = movie.title ?? ""
             movieView.posterPath = movie.posterPath ?? ""
             movieView.originalTitle = movie.originalTitle ?? ""
             movieView.overview = movie.overview ?? ""

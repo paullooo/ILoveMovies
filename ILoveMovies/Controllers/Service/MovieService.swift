@@ -31,26 +31,10 @@ class MovieService {
                     MovieViewModel.clear()
                     MovieViewModel.save(movies: movies)
                     self.delegate?.searchMoviesSuccess()
-                    print(response.result)
                 }
             case .failure:
                   print("Fail")
-                 // self.delegate.searchMoviesFailure(error: response.error?.localizedDescription)
-            }
-            })
-    }
-    func getSimilarMovie(identifier: Int) {
-        self.getSimilarMoviesRequest?.cancel()
-        self.getSimilarMoviesRequest = RequestFactory.getSimilarMovie(identifier: identifier).validate().responseArray(
-            keyPath: "results", completionHandler: { (response: DataResponse<[Movie]>) in
-            switch response.result {
-            case .success:
-                if let moviesSimilar = response.result.value {
-                     MovieViewModel.clear()
-                     MovieViewModel.save(movies: moviesSimilar)
-                }
-            case .failure:
-                print("FAIL")
+//                 self.delegate.searchMoviesFailure(error: response)
             }
             })
     }
@@ -61,7 +45,7 @@ class MovieService {
             switch response.result {
             case .success:
                 if let movie = response.result.value {
-                    //MovieViewModel.save(movie: movie, type: .normal)
+                    MovieViewModel.save(movies: [movie])
                 }
             case .failure:
                 print("FAIL")
