@@ -8,8 +8,10 @@ import Alamofire
 import AlamofireObjectMapper
 
 protocol MovieServiceDelegate: class {
-    func searchMoviesSuccess()
-    func searchMoviesFailure(error: String)
+    func searchMoviesSuccess(movies: [Movie])
+    func searchMoviesFailure()
+    func getMovieSuccess()
+    func getMovieFailure()
 }
 class MovieService {
     var getMoviesRequest: DataRequest?
@@ -28,13 +30,10 @@ class MovieService {
             switch response.result {
             case .success:
                 if let movies = response.result.value {
-                    MovieViewModel.clear()
-                    MovieViewModel.save(movies: movies)
-                    self.delegate?.searchMoviesSuccess()
+                    self.delegate?.searchMoviesSuccess(movies: movies)
                 }
             case .failure:
-                  print("Fail")
-//                 self.delegate.searchMoviesFailure(error: response)
+                  self.delegate?.searchMoviesFailure()
             }
             })
     }
@@ -45,10 +44,11 @@ class MovieService {
             switch response.result {
             case .success:
                 if let movie = response.result.value {
-                    MovieViewModel.save(movies: [movie])
+                    MovieViewModel.save(movies: movie)
+                    self.delegate?.getMovieSuccess()
                 }
             case .failure:
-                print("FAIL")
+                self.delegate?.getMovieFailure()
             }
             })
     }

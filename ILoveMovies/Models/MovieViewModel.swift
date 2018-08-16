@@ -17,14 +17,16 @@ struct MovieView {
 }
 
 class MovieViewModel {
-    static func save(movies: [Movie]) {
+    static func save(movies: Movie) {
+        let movie = realm.object(ofType: Movie.self, forPrimaryKey: movies.identifier)
+        movies.favorite = movie?.favorite ?? false
         try! realm.write {
             realm.add(movies, update: true)
         }
     }
     static func clear() {
         try! realm.write {
-            realm.delete(realm.objects(Movie.self))
+            realm.delete(realm.objects(Movie.self).filter({ !$0.favorite }))
         }
     }
     static func getAsView(movie: Movie?) -> MovieView {
@@ -70,10 +72,10 @@ class MovieViewModel {
     static func getModel(identifier: Int) -> Movie? {
         return realm.object(ofType: Movie.self, forPrimaryKey: identifier)
     }
-    static func getMovies() -> [MovieView] {
+    static func getMovies(favorite: Bool = false) -> [MovieView] {
         let moviesModel = realm.objects(Movie.self)
         var movies: [Movie] = []
         movies.append(contentsOf: moviesModel)
-        return self.getAsView(sequence: movies)
+        return self.getAsView(sequence: movies.filter({ $0.favorite == favorite }))
     }
 }

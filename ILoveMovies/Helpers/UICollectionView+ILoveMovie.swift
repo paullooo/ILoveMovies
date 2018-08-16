@@ -1,5 +1,5 @@
 //
-//  UICollectionView+ILoveMusic.swift
+//  UICollectionView+ILoveMovie.swift
 //  ILoveMovies
 //
 //  Created by Developer on 11/08/18.

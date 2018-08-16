@@ -11,6 +11,7 @@ class SearchViewController: UIViewController {
     var movies: [MovieView] = []
     var service: MovieService!
     var randomString: RandomString!
+    var alertView: AlertView!
     @IBOutlet weak var movieCollection: UICollectionView!
     var searchController: UISearchController!
     override func viewDidLoad() {
@@ -18,6 +19,7 @@ class SearchViewController: UIViewController {
         self.service = MovieService(delegate: self)
         self.title = "Search"
         self.randomString = RandomString()
+        self.alertView = AlertView()
         self.view.backgroundColor = UIColor .secundaryColor
         self.configureSearchBar()
         self.configureCollection()
@@ -50,18 +52,29 @@ class SearchViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailSegue" {
             if let controller = segue.destination as? DetailViewController {
-                controller.movieDetailIdentifier = sender as? Int
+                controller.movie = sender as? MovieView
             }
         }
+    }
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.searchController.searchBar.resignFirstResponder()
     }
 }
 
 extension SearchViewController: MovieServiceDelegate {
-    func searchMoviesSuccess() {
-         self.movies = MovieViewModel.getMovies()
-         self.movieCollection.reloadData()
+    func getMovieSuccess() {
+        
     }
-    func searchMoviesFailure(error: String) {
+    
+    func getMovieFailure() {
+        
+    }
+    func searchMoviesSuccess(movies: [Movie]) {
+        self.movies = MovieViewModel.getAsView(sequence: movies)
+        self.movieCollection.reloadData()
+    }
+    func searchMoviesFailure() {
+         self.alertView.failMessage(message: "Não foi possivel realizar sua busca!")
     }
 }
 
@@ -96,7 +109,7 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.searchController.searchBar.becomeFirstResponder()
         self.searchController.isActive = false
-        performSegue(withIdentifier: "detailSegue", sender: self.movies[indexPath.row].identifier)
+        performSegue(withIdentifier: "detailSegue", sender: self.movies[indexPath.row])
     }
 }
 

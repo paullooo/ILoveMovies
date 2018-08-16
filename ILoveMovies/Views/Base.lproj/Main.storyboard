@@ -82,6 +82,7 @@
                         <outlet property="favoriteCollectionView" destination="bKB-sm-C6E" id="wj5-l5-NjV"/>
                         <outlet property="searchButton" destination="Iti-Mw-HyA" id="iG8-0Y-bg2"/>
                         <segue destination="wje-31-tdf" kind="show" identifier="searchSegue" id="rpx-5n-xpq"/>
+                        <segue destination="GO0-4x-XOy" kind="show" identifier="favoriteSegue" id="dMH-1c-HcB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -143,7 +144,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="620"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wxe-Y9-rNI">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxe-Y9-rNI">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="620"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
@@ -152,18 +153,22 @@
                         <constraints>
                             <constraint firstItem="IAo-fv-csR" firstAttribute="bottom" secondItem="wxe-Y9-rNI" secondAttribute="bottom" id="1gc-yw-l55"/>
                             <constraint firstItem="wxe-Y9-rNI" firstAttribute="top" secondItem="IAo-fv-csR" secondAttribute="top" id="L2e-ZD-8pw"/>
-                            <constraint firstItem="wxe-Y9-rNI" firstAttribute="leading" secondItem="IAo-fv-csR" secondAttribute="leading" id="e11-4z-rn2"/>
-                            <constraint firstItem="IAo-fv-csR" firstAttribute="trailing" secondItem="wxe-Y9-rNI" secondAttribute="trailing" id="xUf-RY-REu"/>
+                            <constraint firstItem="wxe-Y9-rNI" firstAttribute="leading" secondItem="clE-d0-gyI" secondAttribute="leading" id="e11-4z-rn2"/>
+                            <constraint firstAttribute="trailing" secondItem="wxe-Y9-rNI" secondAttribute="trailing" id="xUf-RY-REu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IAo-fv-csR"/>
                     </view>
+                    <toolbarItems/>
                     <connections>
                         <outlet property="detailTableView" destination="wxe-Y9-rNI" id="xQa-TL-QD9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zXP-ME-UUI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1795.6521739130437" y="134.5108695652174"/>
+            <point key="canvasLocation" x="932" y="923"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="dMH-1c-HcB"/>
+    </inferredMetricsTieBreakers>
 </document>

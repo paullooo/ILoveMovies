@@ -13,7 +13,6 @@ class MovieCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.backgroundColor = UIColor .primaryColor
-        // Initialization code
     }
     func bind(movie: MovieView) {
         let url = URL(string: baseImageURL + "original" + movie.posterPath)
