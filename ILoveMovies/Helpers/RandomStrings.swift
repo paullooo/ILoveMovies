@@ -12,11 +12,11 @@ class RandomString {
         let random = arc4random_uniform(3)
         switch random {
         case 0:
-            return "Você ainda não possui favoritos :("
+            return NSLocalizedString("Favorite1", comment: "")
         case 1:
-            return "Hey, adicione favoritos :)"
+            return NSLocalizedString("Favorite2", comment: "")
         case 2:
-            return "Seus filmes favoritos ficam aqui <3"
+            return NSLocalizedString("Favorite3", comment: "")
         default:
             return ""
         }
@@ -25,11 +25,11 @@ class RandomString {
         let random = arc4random_uniform(3)
         switch random {
         case 0:
-            return "Você precisa fazer uma busca <3"
+            return NSLocalizedString("Search1", comment: "")
         case 1:
-            return "Hey, use a barra de busca :)"
+            return NSLocalizedString("Search2", comment: "")
         case 2:
-            return "Ainda não tenho nada para mostrar :("
+            return NSLocalizedString("Search3", comment: "")
         default:
             return ""
         }

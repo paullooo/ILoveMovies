@@ -15,6 +15,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         self.backgroundColor = UIColor .primaryColor
     }
     func bind(movie: MovieView) {
+        //mandar isso para o viewmodel
         let url = URL(string: baseImageURL + "original" + movie.posterPath)
         self.imageView.kf.indicatorType = .activity
         self.imageView.kf.setImage(with: url, options: [.transition(.fade(1.0))])

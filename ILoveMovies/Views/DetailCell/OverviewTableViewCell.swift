@@ -8,7 +8,6 @@
 import UIKit
 
 class OverviewTableViewCell: UITableViewCell {
-    @IBOutlet weak var favotiteButton: UIButton!
     @IBOutlet weak var titleTextField: UILabel!
     @IBOutlet weak var overviewTextField: UITextView!
     override func awakeFromNib() {

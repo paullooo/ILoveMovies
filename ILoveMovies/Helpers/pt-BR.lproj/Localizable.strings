@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  ILoveMovies
+
+  Created by Developer on 16/08/18.
+  Copyright © 2018 Developer. All rights reserved.
+*/
+
+"Favorite" = "Favorito";
+"Search" = "Buscar";
+"Search Movie" = "Pesquisar Filme";
+//Random Favorite Strings
+"Favorite1" = "Você ainda não possui favoritos :(";
+"Favorite2" = "Hey, adicione favoritos :)";
+"Favorite3" = "Seus filmes favoritos ficam aqui <3";
+//Random Search Strings
+"Search1" = "Você precisa fazer uma busca <3";
+"Search2" = "Hey, use a barra de busca :)";
+"Search3" = "Ainda não tenho nada para mostrar :(";

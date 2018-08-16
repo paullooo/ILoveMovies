@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor .secundaryColor
-        self.title = "Favoritos"
+        self.title = NSLocalizedString("Favorite", comment: "")
         self.randomString = RandomString()
         self.configureCollectionView()
     }

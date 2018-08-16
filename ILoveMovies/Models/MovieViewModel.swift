@@ -14,6 +14,8 @@ struct MovieView {
     var overview: String = ""
     var posterPath: String = ""
     var backdropPath: String = ""
+    var isFavorite: Bool = false
+    var backdrops: [String] = []
 }
 
 class MovieViewModel {
@@ -41,6 +43,8 @@ class MovieViewModel {
             movieView.originalTitle = movie.originalTitle ?? ""
             movieView.overview = movie.overview ?? ""
             movieView.backdropPath = movie.backdropPath ?? ""
+            movieView.isFavorite = movie.favorite
+            movie.backdrops.forEach({ movieView.backdrops.append($0) })
         }
         return movieView
     }
@@ -52,18 +56,20 @@ class MovieViewModel {
         return movies
     }
 
-    static func makeFavorite(identifier: Int) {
+    static func makeFavorite(identifier: Int, favorite: Bool) -> MovieView {
         if let movie = self.getModel(identifier: identifier) {
             try! realm.write {
-                movie.favorite = true
+                movie.favorite = favorite
             }
+            return self.getAsView(movie: movie)
         }
+        return MovieView()
     }
-    static func removeFavorite(identifier: Int) {
+    static func saveImages(identifier: Int, backdrops: [Backdrop]) {
         if let movie = self.getModel(identifier: identifier) {
-            try! realm.write {
-                movie.favorite = false
-            }
+          try! realm.write {
+            backdrops.forEach({ movie.backdrops.append($0.filePath) })
+          }
         }
     }
     static func get(identifier: Int) -> MovieView {

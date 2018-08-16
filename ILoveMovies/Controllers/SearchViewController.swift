@@ -17,22 +17,28 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.service = MovieService(delegate: self)
-        self.title = "Search"
+        self.title = NSLocalizedString("Search", comment: "")
         self.randomString = RandomString()
         self.alertView = AlertView()
         self.view.backgroundColor = UIColor .secundaryColor
         self.configureSearchBar()
         self.configureCollection()
-        self.navigationItem.searchController = searchController
-        self.navigationItem.largeTitleDisplayMode = .never
-        self.navigationItem.hidesSearchBarWhenScrolling = true
+        if #available(iOS 11.0, *) {
+            self.navigationItem.searchController = searchController
+            self.navigationItem.largeTitleDisplayMode = .never
+            self.navigationItem.hidesSearchBarWhenScrolling = true
+        } else {
+            self.searchController.hidesNavigationBarDuringPresentation = false
+            self.searchController.searchBar.isTranslucent = false
+            self.present(searchController, animated: true)
+        }
     }
     func configureSearchBar() {
         searchController = UISearchController(searchResultsController: nil)
         searchController.delegate = self
         searchController.searchBar.delegate = self
         searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Buscar Filme"
+        searchController.searchBar.placeholder = NSLocalizedString("Search_Movie", comment: "")
         searchController.searchBar.tintColor = .white
         searchController.searchBar.barStyle = .black
     }
@@ -63,11 +69,12 @@ class SearchViewController: UIViewController {
 
 extension SearchViewController: MovieServiceDelegate {
     func getMovieSuccess() {
-        
     }
-    
     func getMovieFailure() {
-        
+    }
+    func getImageSuccess() {
+    }
+    func getImageFailure() {
     }
     func searchMoviesSuccess(movies: [Movie]) {
         self.movies = MovieViewModel.getAsView(sequence: movies)

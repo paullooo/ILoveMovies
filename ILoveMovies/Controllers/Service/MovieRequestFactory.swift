@@ -14,6 +14,10 @@ class RequestFactory {
         let params: Parameters = ["api_key": apiKey, "language": "pt-BR"]
         return Alamofire.request(baseURL + "movie/\(identifier)", method: .get, parameters: params)
     }
+    static func getImages(identifier: Int) -> DataRequest {
+        let params: Parameters = ["api_key": apiKey]
+        return Alamofire.request(baseURL + "movie/\(identifier)/images", method: .get, parameters: params)
+    }
     static func getVideos(identifier: Int) -> DataRequest {
         let params: Parameters = ["api_key": apiKey, "language": "pt-BR"]
         return Alamofire.request(baseURL + "movie/\(identifier)/videos", method: .get, parameters: params)
