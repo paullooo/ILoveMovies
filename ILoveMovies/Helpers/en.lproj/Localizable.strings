@@ -5,6 +5,7 @@
   Created by Developer on 16/08/18.
   Copyright © 2018 Developer. All rights reserved.
 */
+"prefix" = "en-US";
 
 "Favorite" = "Favorite";
 "Search" = "Search";
